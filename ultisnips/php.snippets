@@ -1,0 +1,105 @@
+snippet arw "arrow"
+=>
+endsnippet
+
+snippet this "this"
+$this->
+endsnippet
+
+snippet arr "array"
+[ $1 => $2 ]
+endsnippet
+
+snippet el "element"
+$1 => $2,
+endsnippet
+
+snippet class "class declaration"
+class $1
+{
+
+	public function __construct(...$args)
+	{
+		/**
+		 *  @params
+		 *	...$args
+		 *  array $args
+		 *
+		 *  @number_of_args
+		 *	func_num_args()
+		 *	count()
+		 */	
+		switch (count($args)) {
+			case 0:
+				/**
+				 *  overload call
+				 *  with param count 0
+				 */
+				break;
+			case 1:
+				/**
+				 *  overload call 
+				 *  with param count1
+				 */	
+				break;
+			
+			default:
+				
+				break;
+		}
+	}
+
+  public function __destruct()
+  {
+  	
+  }
+
+	public function __get($name)
+	{
+			if (property_exists($this, $name)) {
+				return $this->$name;	
+			}
+	}
+
+	public function __set($name, $value)
+	{
+		if (property_exists($this, $name)) {
+			$this->$name = $value;	
+		}			
+
+	}
+}
+$0
+endsnippet
+
+snippet forcol "foreign key column" 
+$table->unsignedBigInteger('$1');$0
+endsnippet
+
+snippet forkey "foreign key desc" 
+$table->foreign('$1')->references('id')->on('$2');$0
+endsnippet
+
+snippet fordrop "drop foreign"
+Schema::table('$1', function(Blueprint $table) {
+	$table->dropForeign(['$2']);$0
+});
+endsnippet
+
+snippet fac "foreign factory" 
+'$1' => $faker->randomElement($2::all()->pluck('id')->toArray()),$0
+endsnippet
+
+snippet seed "seeder"
+try {
+    factory($1::class, 100)->create();
+    $this->command->info('$1s table seeded with 100 dummy data');
+} catch (Exception $e) {
+    $this->command->info('$1sTableSeeder exception');
+    $this->command->info($e);
+}
+endsnippet
+
+snippet	info "info"
+$this->command->info('$1');$0
+endsnippet
