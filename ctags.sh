@@ -5,6 +5,6 @@ then
 		ctags
 else
 	sudo apt install vim \
-		exuberant-ctags
+		exuberant-ctags -y
 fi
 
