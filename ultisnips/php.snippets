@@ -100,6 +100,26 @@ try {
 }
 endsnippet
 
+snippet setup "test setup method"
+public function setUp(): void
+{
+    parent::setUp();
+		$1
+}$0
+endsnippet
+
+snippet test "test"
+/** @test */
+public function $1()
+{
+	  $this->assertTrue(true);$0
+}
+endsnippet
+
 snippet	info "info"
 $this->command->info('$1');$0
+endsnippet
+
+snippet const "constant"
+const $1 = $2; $0
 endsnippet
