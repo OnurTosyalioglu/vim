@@ -72,7 +72,7 @@ let g:tagbar_width = 25
 " tagbar
 
 " emmet
-let g:user_emmet_leader_key="<C-e>"
+let g:user_emmet_expandabbr_key = '<c-e>'
 " emmet
 
 " lightline
