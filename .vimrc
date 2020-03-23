@@ -5,14 +5,15 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
-
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+
+Plug 'mralejandro/vim-phpdoc'
+
+Plug 'chr4/nginx.vim'
 
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+
 Plug 'mattn/emmet-vim'
 
 Plug 'itchyny/lightline.vim'
@@ -119,8 +120,6 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 " auto close quickfix window
 autocmd WinEnter * if winnr('$') == 1 && &buftype == "quickfix" | quit | endif
 
-" ale
-
 " key bindings
 map nt :NERDTreeToggle<CR>
 map ter :terminal<CR>
@@ -136,6 +135,10 @@ nmap <F8> :TagbarToggle<CR>
 map nq :q!<CR>
 map wq :wq<CR>
 map jd :call CocAction('jumpDefinition', 'vsplit')<CR>
+map ga :Gwrite<CR>
+map gc :Gcommit<CR>
+map gp :Gpush<CR>
+map doc :call PhpDocPasteComment()<CR>
 " key bindings
 
 " window swap
@@ -144,3 +147,6 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 " window swap
+
+" let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
+" nnoremap <buffer> <C-p> :call pdv#DocumentWithSnip()<CR>

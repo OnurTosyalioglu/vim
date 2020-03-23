@@ -1,25 +1,54 @@
 snippet req "require"
-const $1 = require('$2') $0
+const $1 = require($2) $0
 endsnippet
 
 snippet reqc "require curly"
-const { $1 } = require('$2')$0
+const { $1 } = require($2)$0
 endsnippet
 
 snippet imp "import"
-import $1 from '$2'$0
+import $1 from $2
 endsnippet
 
 snippet impc "import curly"
 import { $1 } from '$2'$0
 endsnippet
 
+snippet impr "import react"
+import React, 
+	{ 
+		Component, 
+		Fragment,
+		useState, 
+		useEffect, 
+		useRef, 
+		useContext,
+}  from 'react'
+endsnippet
+
+snippet impm "import material"
+import { makeStyles } from '@material-ui/core'
+
+// import  from '@material-ui/icons'
+endsnippet
+
+snippet impro "import router"
+import {
+	BrowserRouter,
+	Route,
+	Link,
+	Switch,
+	useParams,
+	useRouteMatch,
+} from 'react-router-dom'
+endsnippet 
+
 snippet arrow "arrow function"
 ($1) => { $2 }$0
 endsnippet
 
-snippet arrowc "collapse arrow"
-(($1) => { $2 })$0
+snippet arrowf "arrow flat"
+$1 => $2
 endsnippet
 
 snippet cl "console log"
@@ -31,19 +60,19 @@ snippet then "then function"
 endsnippet
 
 snippet catch "catch function"
-.catch(($1) => { $2 })$0
+.catch((err) => { $2 })$0
 endsnippet
 
 snippet filter "filter"
-.filter((value, index, array) => { $2 })$0
+.filter((v, i, a) => { $2 })$0
 endsnippet
 
 snippet map "map"
-.map((value, index, array) => { $2 })$0
+.map((v, i, a) => { $2 })$0
 endsnippet
 
 snippet reduce "reduce"
-.reduce((acc, value, index, array) => { $2 })$0
+.reduce((ac, v, i, a) => { $2 })$0
 endsnippet
 
 snippet promise "promise"
@@ -51,27 +80,27 @@ new Promise((resolve, reject) => { $1 })$0
 endsnippet
 
 snippet des "describe"
-describe('$1', () => {$0})
+describe($1, () => { $0 })
 endsnippet
 
 snippet test "test"
-test('$1', () => {$0})
+test($1, () => { $0 })
 endsnippet
 
 snippet bef "before"
-before(() => {$1})$0
+before(() => { $1 })$0
 endsnippet
 
 snippet befall "before all"
-beforeAll(() => {$1})$0
+beforeAll(() => { $1 })$0
 endsnippet
 
 snippet af "after"
-after(() => {$1})$0
+after(() => { $1 })$0
 endsnippet
 
 snippet afall "after all"
-afterAll(() => {$1})$0
+afterAll(() => { $1 })$0
 endsnippet
 
 snippet exp "expect"
@@ -99,4 +128,163 @@ endsnippet
 
 snippet exp	"export"
 export { $0 }
+endsnippet
+
+snippet ptypes "react props"
+$1.propTypes = {
+	$0
+}
+endsnippet
+
+snippet imprh "main imports"
+import React, { Component } from 'react'
+import props from './props'
+import styles from './styles'
+endsnippet
+
+snippet setst "state"
+this.setState({ $1 })
+endsnippet
+
+snippet classes "classes"
+const classes = styles()
+endsnippet
+
+snippet cname "class name"
+className={ $1 }
+endsnippet
+
+snippet cstyle "class name"
+style={{ $1 }}
+endsnippet
+
+snippet comp "react component"
+import React, { Component, Fragment } from 'react'
+
+class $1 extends Component 
+{
+	constructor(props)
+	{	
+		super (props)	
+
+		this.state = {
+
+		}
+	}	
+
+	componentDidMount () 
+	{
+
+	}
+
+	render ()
+	{
+		return <Fragment>
+				<div>$2</div>
+			</Fragment>
+	}
+}
+
+export default $1
+endsnippet 
+
+snippet listimp "Description" 
+List,
+ListItem,
+ListItemIcon,
+ListItemText,
+ListItemAvatar,
+ListItemSecondaryAction,
+ListSubheader,
+endsnippet
+
+snippet imptb "table import"
+TableContainer,
+Table,
+TableHead,
+TableRow,
+TableCell,
+TableFooter,
+TableBody,
+TablePagination,
+TableSortLabel,
+endsnippet
+
+snippet comf "function component"
+import React, { 
+	Fragment,
+	useState,
+	useEffect,
+} from 'react'
+
+import styles from './styles'
+import props from './props'
+
+import {
+
+} from '@material-ui/core'
+
+// import  from '@material-ui/icons'
+
+function $1 (props)
+{
+	const classes = styles()
+
+	useEffect(() => {  })
+
+	return <Fragment>
+		
+	</Fragment>
+}
+
+$1.propTypes =  props
+
+export default $1
+endsnippet
+
+snippet styles "styles"
+import { makeStyles } from '@material-ui/core'
+
+export default makeStyles(theme => ({
+	root: {
+
+	}
+}))
+endsnippet
+
+snippet props "props"
+import PropTypes from 'prop-types'
+
+export default {
+
+}
+endsnippet
+
+snippet funst "functional state"
+const [$1, set$1] = useState($2)
+endsnippet
+
+snippet toggle "toggle"
+const [open, setOpen] = useState(false)
+
+const toggle = () => setOpen(prev => !prev)
+endsnippet 
+
+snippet ro "route"
+<Route 
+	path=$1
+	component={$2}
+/>
+endsnippet
+
+snippet ter "ternary"
+	props.$1 === $2 ?
+	$3 : 
+	null
+endsnippet
+
+snippet ternot "ternary"
+	props.$1 !== $2 ?
+	$3 : 
+	null
 endsnippet
