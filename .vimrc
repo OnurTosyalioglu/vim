@@ -32,6 +32,8 @@ Plug 'majutsushi/tagbar'
 Plug 'dracula/vim'
 
 Plug 'storyn26383/vim-vue'
+Plug 'burnettk/vim-angular'
+Plug 'leafgarland/typescript-vim'
 Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
 
@@ -105,10 +107,10 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " editor config
 
 " ulti snips
-let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsEditSplit = 'vertical'
 
 " ubuntu & mac
-let g:UltiSnipsSnippetsDir = "/Users/tositos/.vim/ultisnips"
+let UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips']
 " ulti snips
 
 set completeopt+=preview
@@ -148,5 +150,3 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 " window swap
 
-" let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
-" nnoremap <buffer> <C-p> :call pdv#DocumentWithSnip()<CR>
