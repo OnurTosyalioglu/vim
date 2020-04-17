@@ -1,0 +1,13 @@
+snippet vm "description"
+config.vm.provider "virtualbox" do |vb|
+  # Display the VirtualBox GUI when booting the machine
+  vb.vm.hostname = 'workspace'
+  vb.vm.box = BOX
+  vb.gui = true
+  vb.vm.network :private_network, ip: "192.168.10.11"
+
+  # Customize the amount of memory on the VM:
+  vb.memory = "1024"
+  vb.name = "workspace"
+end
+endsnippet
