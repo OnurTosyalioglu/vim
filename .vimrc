@@ -110,8 +110,10 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 let g:UltiSnipsEditSplit = 'vertical'
 
 " ubuntu & mac
-let UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips']
+let UltiSnipsSnippetDirectories = [ $HOME.'/.vim/UltiSnips' ]
 " ulti snips
+
+let g:coc_disable_startup_warning = 1
 
 set completeopt+=preview
 set completeopt+=menuone
