@@ -50,6 +50,7 @@ set nospell
 
 " dracula
 let g:dracula_italic = 0
+highlight clear SignColumn
 " dracula
 
 " indenting
