@@ -9,6 +9,9 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
 Plug 'mralejandro/vim-phpdoc'
 
+Plug 'iamcco/mathjax-support-for-mkdp'
+Plug 'iamcco/markdown-preview.vim'
+
 Plug 'chr4/nginx.vim'
 
 Plug 'SirVer/ultisnips'
