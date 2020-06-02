@@ -9,6 +9,8 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
 Plug 'mralejandro/vim-phpdoc'
 
+Plug 'dart-lang/dart-vim-plugin'
+
 Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'iamcco/markdown-preview.vim'
 
