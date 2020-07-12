@@ -7,12 +7,9 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
-Plug 'mralejandro/vim-phpdoc'
-
 Plug 'dart-lang/dart-vim-plugin'
 
-Plug 'iamcco/mathjax-support-for-mkdp'
-Plug 'iamcco/markdown-preview.vim'
+Plug 'mralejandro/vim-phpdoc'
 
 Plug 'chr4/nginx.vim'
 
@@ -37,8 +34,6 @@ Plug 'majutsushi/tagbar'
 Plug 'dracula/vim'
 
 Plug 'storyn26383/vim-vue'
-Plug 'burnettk/vim-angular'
-Plug 'leafgarland/typescript-vim'
 Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
 
@@ -55,7 +50,6 @@ set nospell
 
 " dracula
 let g:dracula_italic = 0
-highlight clear SignColumn
 " dracula
 
 " indenting
@@ -113,13 +107,11 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " editor config
 
 " ulti snips
-let g:UltiSnipsEditSplit = 'vertical'
+let g:UltiSnipsEditSplit="vertical"
 
 " ubuntu & mac
-let UltiSnipsSnippetDirectories = [ $HOME.'/.vim/UltiSnips' ]
+let g:UltiSnipsSnippetsDir = "/Users/tositos/.vim/ultisnips"
 " ulti snips
-
-let g:coc_disable_startup_warning = 1
 
 set completeopt+=preview
 set completeopt+=menuone
@@ -145,10 +137,9 @@ nmap <F8> :TagbarToggle<CR>
 map nq :q!<CR>
 map wq :wq<CR>
 map jd :call CocAction('jumpDefinition', 'vsplit')<CR>
-map ga :Gwrite<CR>
-map gc :Gcommit<CR>
-map gp :Gpush<CR>
-map doc :call PhpDocPasteComment()<CR>
+map gad :Gwrite<CR>
+map gco :Gcommit<CR>
+map gpu :Gpush<CR>
 " key bindings
 
 " window swap
@@ -158,3 +149,5 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 " window swap
 
+" prettier support
+nnoremap gp :silent %!prettier --stdin-filepath %<CR>
