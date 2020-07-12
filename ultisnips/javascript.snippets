@@ -6,6 +6,10 @@ snippet reqc "require curly"
 const { $1 } = require($2)$0
 endsnippet
 
+snippet	sp "spread"
+...
+endsnippet
+
 snippet imp "import"
 import $1 from $2
 endsnippet
@@ -81,10 +85,6 @@ endsnippet
 
 snippet des "describe"
 describe($1, () => { $0 })
-endsnippet
-
-snippet test "test"
-test($1, () => { $0 })
 endsnippet
 
 snippet bef "before"
@@ -198,18 +198,6 @@ ListItemSecondaryAction,
 ListSubheader,
 endsnippet
 
-snippet imptb "table import"
-TableContainer,
-Table,
-TableHead,
-TableRow,
-TableCell,
-TableFooter,
-TableBody,
-TablePagination,
-TableSortLabel,
-endsnippet
-
 snippet comf "function component"
 import React, { 
 	Fragment,
@@ -226,8 +214,7 @@ import {
 
 // import  from '@material-ui/icons'
 
-function $1 (props)
-{
+const $1 = (props) => {
 	const classes = styles()
 
 	useEffect(() => {  })
@@ -240,24 +227,6 @@ function $1 (props)
 $1.propTypes =  props
 
 export default $1
-endsnippet
-
-snippet styles "styles"
-import { makeStyles } from '@material-ui/core'
-
-export default makeStyles(theme => ({
-	root: {
-
-	}
-}))
-endsnippet
-
-snippet props "props"
-import PropTypes from 'prop-types'
-
-export default {
-
-}
 endsnippet
 
 snippet funst "functional state"
@@ -287,4 +256,86 @@ snippet ternot "ternary"
 	props.$1 !== $2 ?
 	$3 : 
 	null
+endsnippet
+
+snippet card "material card"
+<Card className={classes.card}>
+	<CardHeader>
+	</CardHeader>
+
+	<CardMedia>
+	</CardMedia>
+
+	<CardContent>
+	</CardContent>
+
+	<CardActions>
+	</CardActions>
+</Card>
+endsnippet
+
+snippet cardcss "material card css"
+card: {
+	background: theme.palette.success.light,
+	padding: theme.spacing(1),
+	height: 200,
+},
+cardHeader: {
+
+},
+cardMedia: {
+
+},
+cardContent: {
+
+},
+cardActions: {
+
+},
+endsnippet
+
+snippet handle "form handle"
+const handleChange = (e) => {  }
+const handleSubmit = (e) => {  }
+endsnippet
+
+snippet container "container"
+<Container maxWidth={$1}>
+</Container>
+endsnippet
+
+snippet gitem "grid item"
+<Grid item xs={$1} sm={$1} md={$1} lg={$1} xl={$1}>
+</Grid>
+endsnippet
+
+snippet styles "material ui styles"
+import { makeStyles } from '@material-ui/core'
+
+const styles = makeStyles(theme => ({
+
+}))
+
+export default styles
+endsnippet
+
+snippet props "react props"
+import propTypes from 'prop-types'
+
+export default {
+
+}
+endsnippet
+
+snippet test "react test snip"
+import React from 'react'
+import { render } from '@testing-library/react'
+import $1 from './$1'
+
+test('$1 component test', () => {
+  const { getByText } = render(<$1 />)
+	// const linkElement = getByText(//i)
+	// expect(linkElement).toBeInTheDocument()
+	expect(true).toBe(true)
+})
 endsnippet

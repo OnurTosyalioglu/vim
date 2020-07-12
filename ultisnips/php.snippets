@@ -184,3 +184,13 @@ snippet fncom "function snip"
  * @return 
  */
 endsnippet
+
+snippet dump "var dump"
+var_dump($1)
+endsnippet
+
+snippet check "check params"
+array_key_exists('', $params) ?
+	$params : 
+	$params['page'] = 0;
+endsnippet
