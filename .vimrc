@@ -110,7 +110,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 let g:UltiSnipsEditSplit="vertical"
 
 " ubuntu & mac
-let g:UltiSnipsSnippetsDir = "/Users/tositos/.vim/ultisnips"
+let g:UltiSnipsSnippetsDir = "/Users/tositos/.vim/UltiSnips"
 " ulti snips
 
 set completeopt+=preview
@@ -150,4 +150,4 @@ nnoremap <C-H> <C-W><C-H>
 " window swap
 
 " prettier support
-nnoremap gp :silent %!prettier --stdin-filepath %<CR>
+nnoremap pret :silent %!prettier --stdin-filepath %<CR>
