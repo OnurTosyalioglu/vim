@@ -207,6 +207,7 @@ import React, {
 
 import styles from './styles'
 import props from './props'
+import { useTranslation } from 'react-i18next'
 
 import {
 
@@ -215,6 +216,7 @@ import {
 // import  from '@material-ui/icons'
 
 const $1 = (props) => {
+	const { t, i18n } = useTranslation()
 	const classes = styles()
 
 	useEffect(() => {  })
@@ -338,4 +340,20 @@ test('$1 component test', () => {
 	// expect(linkElement).toBeInTheDocument()
 	expect(true).toBe(true)
 })
+endsnippet
+
+snippet break "breakpoints"
+[theme.breakpoints.down('$1')]: {
+	$2
+}
+endsnippet
+
+snippet align "align"
+display: 'flex',
+justifyContent: 'center',
+alignItems: 'center',
+endsnippet
+
+snippet style "style"
+style={{ $1 }}
 endsnippet

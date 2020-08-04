@@ -9,8 +9,6 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
 Plug 'dart-lang/dart-vim-plugin'
 
-Plug 'mralejandro/vim-phpdoc'
-
 Plug 'chr4/nginx.vim'
 
 Plug 'SirVer/ultisnips'
@@ -88,7 +86,7 @@ let g:lightline = {
 " git gutter
 
 " nerd tree
-
+let g:NERDTreeWinPos = "right"
 let g:NERDTreeWinSize = 20
 autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
@@ -149,5 +147,5 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 " window swap
 
-" prettier support
-nnoremap pret :silent %!prettier --stdin-filepath %<CR>
+nnoremap pret :silent %!yarn prettier % --write<CR>
+
