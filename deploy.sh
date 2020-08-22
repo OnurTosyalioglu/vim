@@ -2,4 +2,4 @@
 cp ./.vimrc $HOME
 
 # snippet files
-cp -r ./ultisnips ~/.vim/
+cp -r ./UltiSnips ~/.vim/

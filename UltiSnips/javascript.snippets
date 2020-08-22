@@ -357,3 +357,20 @@ endsnippet
 snippet style "style"
 style={{ $1 }}
 endsnippet
+
+snippet tr "translation"
+{t('$1')}
+endsnippet
+
+snippet color "colors"
+import { $1 } from '@material-ui/core/colors'
+endsnippet
+
+snippet route "route"
+{
+	exact: false,
+	path: '/$1',
+	component: $2,
+	key: '$1',
+},
+endsnippet
