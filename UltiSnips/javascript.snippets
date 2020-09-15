@@ -18,11 +18,19 @@ snippet impc "import curly"
 import { $1 } from '$2'$0
 endsnippet
 
-snippet arrow "arrow function"
+snippet arr "arrow function"
 ($1) => { $2 }$0
 endsnippet
 
-snippet arrowf "arrow flat"
+snippet arro "arrow return object"
+($1) => ({ $2 })
+endsnippet
+
+snippet arre "arrow export"
+export const ($1) => {}
+endsnippet
+
+snippet arrf "arrow flat"
 $1 => $2
 endsnippet
 
@@ -416,3 +424,11 @@ const mapDispatchToProps = (dispatch) => ({
 
 })
 endsnippet
+
+snippet dispatch "dispatch"
+dispatch({
+	type: $1,
+	data: $2,
+})
+endsnippet
+
