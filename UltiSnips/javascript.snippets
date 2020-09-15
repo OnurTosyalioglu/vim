@@ -11,41 +11,12 @@ snippet	sp "spread"
 endsnippet
 
 snippet imp "import"
-import $1 from $2
+import $1 from '$1'
 endsnippet
 
 snippet impc "import curly"
 import { $1 } from '$2'$0
 endsnippet
-
-snippet impr "import react"
-import React, 
-	{ 
-		Component, 
-		Fragment,
-		useState, 
-		useEffect, 
-		useRef, 
-		useContext,
-}  from 'react'
-endsnippet
-
-snippet impm "import material"
-import { makeStyles } from '@material-ui/core'
-
-// import  from '@material-ui/icons'
-endsnippet
-
-snippet impro "import router"
-import {
-	BrowserRouter,
-	Route,
-	Link,
-	Switch,
-	useParams,
-	useRouteMatch,
-} from 'react-router-dom'
-endsnippet 
 
 snippet arrow "arrow function"
 ($1) => { $2 }$0
@@ -107,17 +78,6 @@ snippet exp "expect"
 expect($1).$0
 endsnippet
 
-snippet class "class"
-class $1 
-{
-	constructor($2)
-	{	
-		$3
-	}	
-	$0
-}
-endsnippet
-
 snippet modex "module export"
 module.exports = $1
 endsnippet
@@ -136,66 +96,12 @@ $1.propTypes = {
 }
 endsnippet
 
-snippet imprh "main imports"
-import React, { Component } from 'react'
-import props from './props'
-import styles from './styles'
-endsnippet
-
-snippet setst "state"
-this.setState({ $1 })
-endsnippet
-
-snippet classes "classes"
-const classes = styles()
-endsnippet
-
 snippet cname "class name"
-className={ $1 }
+className={ classes.$1 }
 endsnippet
 
 snippet cstyle "class name"
 style={{ $1 }}
-endsnippet
-
-snippet comp "react component"
-import React, { Component, Fragment } from 'react'
-
-class $1 extends Component 
-{
-	constructor(props)
-	{	
-		super (props)	
-
-		this.state = {
-
-		}
-	}	
-
-	componentDidMount () 
-	{
-
-	}
-
-	render ()
-	{
-		return <Fragment>
-				<div>$2</div>
-			</Fragment>
-	}
-}
-
-export default $1
-endsnippet 
-
-snippet listimp "Description" 
-List,
-ListItem,
-ListItemIcon,
-ListItemText,
-ListItemAvatar,
-ListItemSecondaryAction,
-ListSubheader,
 endsnippet
 
 snippet comf "function component"
@@ -204,20 +110,19 @@ import React, {
 	useState,
 	useEffect,
 } from 'react'
+import { useTranslation } from 'react-i18next'
+import { withStyles } from '@material-ui/core/styles'
 
 import styles from './styles'
 import props from './props'
-import { useTranslation } from 'react-i18next'
 
 import {
 
 } from '@material-ui/core'
 
-// import  from '@material-ui/icons'
-
 const $1 = (props) => {
 	const { t, i18n } = useTranslation()
-	const classes = styles()
+	const { classes } = props
 
 	useEffect(() => {  })
 
@@ -226,26 +131,18 @@ const $1 = (props) => {
 	</Fragment>
 }
 
-$1.propTypes =  props
+$1.propTypes = props
 
-export default $1
+export default withStyles(styles)($1)
+
 endsnippet
 
-snippet funst "functional state"
+snippet icon "icon"
+import $1Icon from '@material-ui/icons/$1'
+endsnippet
+
+snippet state "functional state"
 const [$1, set$1] = useState($2)
-endsnippet
-
-snippet toggle "toggle"
-const [open, setOpen] = useState(false)
-
-const toggle = () => setOpen(prev => !prev)
-endsnippet 
-
-snippet ro "route"
-<Route 
-	path=$1
-	component={$2}
-/>
 endsnippet
 
 snippet ter "ternary"
@@ -254,56 +151,30 @@ snippet ter "ternary"
 	null
 endsnippet
 
-snippet ternot "ternary"
-	props.$1 !== $2 ?
-	$3 : 
-	null
+snippet input "form handle"
+const inputHandler = (e) => { 
+	set$1({
+		...$1,
+		[e.target.name]: e.target.value}	
+	)
+}
 endsnippet
 
-snippet card "material card"
-<Card className={classes.card}>
-	<CardHeader>
-	</CardHeader>
-
-	<CardMedia>
-	</CardMedia>
-
-	<CardContent>
-	</CardContent>
-
-	<CardActions>
-	</CardActions>
-</Card>
-endsnippet
-
-snippet cardcss "material card css"
-card: {
-	background: theme.palette.success.light,
-	padding: theme.spacing(1),
-	height: 200,
-},
-cardHeader: {
-
-},
-cardMedia: {
-
-},
-cardContent: {
-
-},
-cardActions: {
-
-},
-endsnippet
-
-snippet handle "form handle"
-const handleChange = (e) => {  }
-const handleSubmit = (e) => {  }
+snippet it "it"
+it('$1', () => {
+	
+})
 endsnippet
 
 snippet container "container"
 <Container maxWidth={$1}>
+	<Grid container>
+	</Grid>
 </Container>
+endsnippet
+
+snippet align "align"
+alignItems={'$1'} justify={'$2'}
 endsnippet
 
 snippet gitem "grid item"
@@ -312,11 +183,9 @@ snippet gitem "grid item"
 endsnippet
 
 snippet styles "material ui styles"
-import { makeStyles } from '@material-ui/core'
+const styles = theme => ({
 
-const styles = makeStyles(theme => ({
-
-}))
+})
 
 export default styles
 endsnippet
@@ -335,9 +204,8 @@ import { render } from '@testing-library/react'
 import $1 from './$1'
 
 test('$1 component test', () => {
-  const { getByText } = render(<$1 />)
-	// const linkElement = getByText(//i)
-	// expect(linkElement).toBeInTheDocument()
+  const Render = render(<$1 />)
+
 	expect(true).toBe(true)
 })
 endsnippet
@@ -346,12 +214,6 @@ snippet break "breakpoints"
 [theme.breakpoints.down('$1')]: {
 	$2
 }
-endsnippet
-
-snippet align "align"
-display: 'flex',
-justifyContent: 'center',
-alignItems: 'center',
 endsnippet
 
 snippet style "style"
@@ -373,4 +235,184 @@ snippet route "route"
 	component: $2,
 	key: '$1',
 },
+endsnippet
+
+snippet router "express router"
+import express from 'express'
+import $1Controller from '../controller/$2_controller'
+
+const router = express.Router()
+
+router.get('/', $1Controller.getAll)
+router.get('/:id', $1Controller.get)
+router.post('/', $1Controller.post)
+router.put('/:id', $1Controller.put)
+router.delete('/:id', $1Controller.delete)
+
+export default router
+endsnippet
+
+snippet controller "express controller"
+const $1Controller = {
+	getAll: (req,res,next) => {  
+		return res.json()
+	},
+	get: (req,res,next) => { 
+		return res.json() 
+	},
+	post: (req,res,next) => { 
+		return res.json() 
+	},
+	put: (req,res,next) => { 
+		return res.json() 
+	},
+	delete: (req,res,next) => { 
+		return res.json() 
+	},
+}
+
+export default $1Controller
+endsnippet
+
+snippet rrd "react router dom"
+import {
+	BrowserRouter,
+	Switch,
+	Route,
+} from 'react-router-dom'
+endsnippet
+
+snippet model "mongoose model"
+import mongoose from '../config/mongoose'
+
+const schema = mongoose.Schema({
+
+})
+
+const $1 = mongoose.model($1, schema)
+
+export default $1
+endsnippet
+
+snippet pe "process env"
+process.env.
+endsnippet
+
+snippet rtfn "router function"
+(req, res, next) => {
+	return 
+}
+endsnippet
+
+snippet dotenv "dotenv"
+import dotenv from 'dotenv'
+
+dotenv.config()
+endsnippet
+
+snippet handler "handler"
+const $1Handler = (e) => {}
+endsnippet
+
+snippet rts "routes"
+import routes from '../../../route/routes'
+endsnippet
+
+snippet img "images"
+import images from '../../../style/images'
+endsnippet
+
+snippet link "link"
+import { Link } from 'react-router-dom'
+endsnippet
+
+snippet list "list import"
+ListItem,
+ListItemText,
+ListItemIcon,
+ListItemAvatar,
+ListItemSecondaryAction,
+ListSubheader,
+endsnippet
+
+snippet mtile "message tile"
+<ListItem component={Paper}>
+	<ListItemAvatar>
+		<Avatar />
+	</ListItemAvatar>
+	<ListItemText
+		primary={$1}
+		secondary={$2}
+	/>
+	<ListSubheader>
+		<ListItemText
+			primary={$3}
+			secondary={$4}
+		/>
+	</ListSubheader>
+	<ListItemSecondaryAction>
+		<MoreVertIcon />
+	</ListItemSecondaryAction>
+</ListItem>
+endsnippet
+
+snippet llist "list"
+<ListItem button>
+	<ListItemText className={ classes.header }>
+	 	$1
+	</ListItemText>
+</ListItem>		
+<ListItem button>
+	<ListItemText className={ classes.text }>
+		$2
+	</ListItemText>
+</ListItem>		
+endsnippet 
+
+snippet mcolor "main color"
+theme.palette.primary.main
+endsnippet
+
+snippet spa "spacing"
+theme.spacing($1)
+endsnippet
+
+snippet adorn "adornment"
+const $1 = {
+	startAdornment: <InputAdornment>
+		<$2 />
+	</InputAdornment>
+}
+endsnippet
+
+snippet cract "crud actions"
+export const GET_$1_ATTEMPT = 'GET_$1_ATTEMPT'
+export const GET_$1_SUCCESS = 'GET_$1_SUCCESS'
+export const GET_$1_ERROR = 'GET_$1_ERROR'
+
+export const GET_$1_ATTEMPT = 'GET_$1_ATTEMPT'
+export const GET_$1_SUCCESS = 'GET_$1_SUCCESS'
+export const GET_$1_ERROR = 'GET_$1_ERROR'
+
+export const POST_$1_ATTEMPT = 'POST_$1_ATTEMPT'
+export const POST_$1_SUCCESS = 'POST_$1_SUCCESS'
+export const POST_$1_ERROR = 'POST_$1_ERROR'
+
+export const PUT_$1_ATTEMPT = 'PUT_$1_ATTEMPT'
+export const PUT_$1_SUCCESS = 'PUT_$1_SUCCESS'
+export const PUT_$1_ERROR = 'PUT_$1_ERROR'
+
+export const DELETE_$1_ATTEMPT = 'DELETE_$1_ATTEMPT'
+export const DELETE_$1_SUCCESS = 'DELETE_$1_SUCCESS'
+export const DELETE_$1_ERROR = 'DELETE_$1_ERROR'
+endsnippet
+
+snippet connect "redux connect"
+const mapStateToProps = (state) => ({  
+
+})
+
+const mapDispatchToProps = (dispatch) => ({  
+
+})
 endsnippet
