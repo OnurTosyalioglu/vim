@@ -86,7 +86,7 @@ let g:lightline = {
 " git gutter
 
 " nerd tree
-let g:NERDTreeWinPos = "right"
+let g:NERDTreeWinPos = "left"
 let g:NERDTreeWinSize = 20
 autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
@@ -135,9 +135,13 @@ nmap <F8> :TagbarToggle<CR>
 map nq :q!<CR>
 map wq :wq<CR>
 map jd :call CocAction('jumpDefinition', 'vsplit')<CR>
-map gad :Gwrite<CR>
+map gad :Gwrite<CR
 map gco :Gcommit<CR>
 map gpu :Gpush<CR>
+map wj :wincmd j<CR>
+map wk :wincmd k<CR>
+map wl :wincmd l<CR>
+map wh :wincmd h<CR>
 " key bindings
 
 " window swap

@@ -39,11 +39,11 @@ console.log($1)$0
 endsnippet
 
 snippet then "then function"
-.then(($1) => { $2 })$0
+.then(($1) => $2)$0
 endsnippet
 
 snippet catch "catch function"
-.catch((err) => { $2 })$0
+.catch((err) => $2)$0
 endsnippet
 
 snippet filter "filter"
@@ -51,7 +51,7 @@ snippet filter "filter"
 endsnippet
 
 snippet map "map"
-.map((v, i, a) => { $2 })$0
+.map((v, i) => $2)$0
 endsnippet
 
 snippet reduce "reduce"
@@ -63,11 +63,11 @@ new Promise((resolve, reject) => { $1 })$0
 endsnippet
 
 snippet des "describe"
-describe($1, () => { $0 })
+describe($1, (true) => { $0 })
 endsnippet
 
 snippet bef "before"
-before(() => { $1 })$0
+beforeEach(() => { $1 })$0
 endsnippet
 
 snippet befall "before all"
@@ -75,7 +75,7 @@ beforeAll(() => { $1 })$0
 endsnippet
 
 snippet af "after"
-after(() => { $1 })$0
+afterEach(() => { $1 })$0
 endsnippet
 
 snippet afall "after all"
@@ -129,7 +129,7 @@ import {
 } from '@material-ui/core'
 
 const $1 = (props) => {
-	const { t, i18n } = useTranslation()
+	const { t } = useTranslation()
 	const { classes } = props
 
 	useEffect(() => {  })
@@ -150,7 +150,7 @@ import $1Icon from '@material-ui/icons/$1'
 endsnippet
 
 snippet state "functional state"
-const [$1, set$1] = useState($2)
+const [$1, set${1/\w+/\u$0/g}] = useState($2)
 endsnippet
 
 snippet ter "ternary"
@@ -169,8 +169,9 @@ const inputHandler = (e) => {
 endsnippet
 
 snippet it "it"
-it('$1', () => {
-	
+it('$1', async (done) => {
+
+	done()
 })
 endsnippet
 
@@ -210,9 +211,14 @@ snippet test "react test snip"
 import React from 'react'
 import { render } from '@testing-library/react'
 import $1 from './$1'
+import { BrowserRouter } from 'react-router-dom'
 
 test('$1 component test', () => {
-  const Render = render(<$1 />)
+  const Render = render(
+	  <BrowserRouter>
+			<$1 />
+		</BrowserRouter>
+	)
 
 	expect(true).toBe(true)
 })
@@ -241,17 +247,16 @@ snippet route "route"
 	exact: false,
 	path: '/$1',
 	component: $2,
-	key: '$1',
 },
 endsnippet
 
 snippet router "express router"
 import express from 'express'
-import $1Controller from '../controller/$2_controller'
+import $1Controller from '../controller/${1/\w+/\l$0/g}_controller'
 
 const router = express.Router()
 
-router.get('/', $1Controller.getAll)
+router.get('/', $1Controller.index)
 router.get('/:id', $1Controller.get)
 router.post('/', $1Controller.post)
 router.put('/:id', $1Controller.put)
@@ -261,25 +266,46 @@ export default router
 endsnippet
 
 snippet controller "express controller"
-const $1Controller = {
-	getAll: (req,res,next) => {  
-		return res.json()
-	},
-	get: (req,res,next) => { 
-		return res.json() 
-	},
-	post: (req,res,next) => { 
-		return res.json() 
-	},
-	put: (req,res,next) => { 
-		return res.json() 
-	},
-	delete: (req,res,next) => { 
-		return res.json() 
-	},
+import $1Service from '../service/${1/\w+/\l$0/g}_service'
+import Controller from './controller'
+
+class $1Controller extends Controller {
+	constructor (args) {
+		super(args)
+	}
+
+	index (req, res, next) {
+	}
+
+	get (req, res, next) {
+	}
+
+	post (req, res, next) {
+	}
+
+	put (req, res, next) {
+	}
+
+	delete (req, res, next) {
+	}
 }
 
-export default $1Controller
+export default new $1Controller({})
+endsnippet
+
+snippet service "express service"
+import ${1/\w+/\u$0/g}Repository from '../repository/$1_repository'
+import Service from './service'
+
+class ${1/\w+/\u$0/g}Service extends Service {
+	constructor(args) {
+		super(args)
+	}
+}
+
+export default new ${1/\w+/\u$0/g}Service({
+	repository: ${1/\w+/\u$0/g}Repository,
+})
 endsnippet
 
 snippet rrd "react router dom"
@@ -291,15 +317,21 @@ import {
 endsnippet
 
 snippet model "mongoose model"
-import mongoose from '../config/mongoose'
+import mongoose, { Schema } from 'mongoose'
 
-const schema = mongoose.Schema({
+const ${1/\w+/\u$0/g}Schema = new Schema(
+  {},
+  { strict: false, timestamps: true },
+)
 
-})
+/**
+ *  @param name
+ *  @param schema
+ *  @param collection
+ */
+const ${1/\w+/\u$0/g} = mongoose.model('$1', ${1/\w+/\u$0/g}Schema, '$1s')
 
-const $1 = mongoose.model($1, schema)
-
-export default $1
+export default ${1/\w+/\u$0/g}
 endsnippet
 
 snippet pe "process env"
@@ -334,49 +366,6 @@ snippet link "link"
 import { Link } from 'react-router-dom'
 endsnippet
 
-snippet list "list import"
-ListItem,
-ListItemText,
-ListItemIcon,
-ListItemAvatar,
-ListItemSecondaryAction,
-ListSubheader,
-endsnippet
-
-snippet mtile "message tile"
-<ListItem component={Paper}>
-	<ListItemAvatar>
-		<Avatar />
-	</ListItemAvatar>
-	<ListItemText
-		primary={$1}
-		secondary={$2}
-	/>
-	<ListSubheader>
-		<ListItemText
-			primary={$3}
-			secondary={$4}
-		/>
-	</ListSubheader>
-	<ListItemSecondaryAction>
-		<MoreVertIcon />
-	</ListItemSecondaryAction>
-</ListItem>
-endsnippet
-
-snippet llist "list"
-<ListItem button>
-	<ListItemText className={ classes.header }>
-	 	$1
-	</ListItemText>
-</ListItem>		
-<ListItem button>
-	<ListItemText className={ classes.text }>
-		$2
-	</ListItemText>
-</ListItem>		
-endsnippet 
-
 snippet mcolor "main color"
 theme.palette.primary.main
 endsnippet
@@ -393,29 +382,7 @@ const $1 = {
 }
 endsnippet
 
-snippet cract "crud actions"
-export const GET_$1_ATTEMPT = 'GET_$1_ATTEMPT'
-export const GET_$1_SUCCESS = 'GET_$1_SUCCESS'
-export const GET_$1_ERROR = 'GET_$1_ERROR'
-
-export const GET_$1_ATTEMPT = 'GET_$1_ATTEMPT'
-export const GET_$1_SUCCESS = 'GET_$1_SUCCESS'
-export const GET_$1_ERROR = 'GET_$1_ERROR'
-
-export const POST_$1_ATTEMPT = 'POST_$1_ATTEMPT'
-export const POST_$1_SUCCESS = 'POST_$1_SUCCESS'
-export const POST_$1_ERROR = 'POST_$1_ERROR'
-
-export const PUT_$1_ATTEMPT = 'PUT_$1_ATTEMPT'
-export const PUT_$1_SUCCESS = 'PUT_$1_SUCCESS'
-export const PUT_$1_ERROR = 'PUT_$1_ERROR'
-
-export const DELETE_$1_ATTEMPT = 'DELETE_$1_ATTEMPT'
-export const DELETE_$1_SUCCESS = 'DELETE_$1_SUCCESS'
-export const DELETE_$1_ERROR = 'DELETE_$1_ERROR'
-endsnippet
-
-snippet connect "redux connect"
+snippet maprx "redux connect"
 const mapStateToProps = (state) => ({  
 
 })
@@ -423,6 +390,27 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({  
 
 })
+
+endsnippet
+
+snippet store "redux store"
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+import rootReducer from '../reducer/root_reducer'
+
+const store = createStore(
+  rootReducer,
+  applyMiddleware(thunk),
+)
+
+export default store
+endsnippet
+
+snippet connect "connect function"
+export default connect(
+	mapStateToProps, 
+	mapDispatchToProps,
+)(withStyles(styles)($1))
 endsnippet
 
 snippet dispatch "dispatch"
@@ -473,4 +461,216 @@ import renderer from 'react-test-renderer'
 it('renders correctly', () => {
   renderer.create(<$1 />)
 })
+endsnippet
+
+snippet anim "animation"
+'@global': {
+	'@keyframes $1': {
+		from: {},
+		to: {},
+		'0%': {},
+		'100%': {},
+	}
+}
+endsnippet
+
+snippet mm "mongo model"
+import mongoose from 'mongoose'
+
+const schema = mongoose.Schema({
+
+},{ 
+	strict: false 
+})
+
+export default mongoose.model('$1', schema, '$1') 
+
+endsnippet
+
+snippet rh "responsive hidden"
+<Hidden smDown>
+$1
+</Hidden>
+<Hidden mdUp>
+$2
+</Hidden>
+endsnippet
+
+snippet rb "responsive break"
+[theme.breakpoints.down('sm')]: {
+	height: '$1',
+},
+[theme.breakpoints.between('sm','lg')]: {
+	height: '$2',
+},
+[theme.breakpoints.up('lg')]: {
+	height: '$3',
+}
+endsnippet
+
+snippet fake "fake data"
+const data = new Array($1)
+	.fill({})
+	.map((v, i) => ({  
+		$0		
+	}))
+endsnippet
+
+snippet pic "lorem picsum"
+'https://picsum.photos/$1/$2'
+endsnippet 
+
+snippet authactions "auth actions"
+export const LOGIN_WITH_EMAIL_REQUEST = 'LOGIN_WITH_EMAIL_REQUEST'
+export const LOGIN_WITH_EMAIL_SUCCESS = 'LOGIN_WITH_EMAIL_SUCCESS'
+export const LOGIN_WITH_EMAIL_ERROR = 'LOGIN_WITH_EMAIL_ERROR'
+
+export const SIGNUP_WITH_EMAIL_REQUEST = 'SIGNUP_WITH_EMAIL_REQUEST'
+export const SIGNUP_WITH_EMAIL_SUCCESS = 'SIGNUP_WITH_EMAIL_SUCCESS'
+export const SIGNUP_WITH_EMAIL_ERROR = 'SIGNUP_WITH_EMAIL_ERROR'
+
+export const SIGNIN_WITH_FACEBOOK_REQUEST = 'SIGNIN_WITH_FACEBOOK_REQUEST'
+export const SIGNIN_WITH_FACEBOOK_SUCCESS = 'SIGNIN_WITH_FACEBOOK_SUCCESS'
+export const SIGNIN_WITH_FACEBOOK_ERROR = 'SIGNIN_WITH_FACEBOOK_ERROR'
+
+export const SIGNIN_WITH_GOOGLE_REQUEST = 'SIGNIN_WITH_GOOGLE_REQUEST'
+export const SIGNIN_WITH_GOOGLE_SUCCESS = 'SIGNIN_WITH_GOOGLE_SUCCESS'
+export const SIGNIN_WITH_GOOGLE_ERROR = 'SIGNIN_WITH_GOOGLE_ERROR'
+
+endsnippet
+
+snippet actions "redux action"
+export const GET_$1S_REQUEST = 'GET_$1S_REQUEST'
+export const GET_$1S_SUCCESS = 'GET_$1S_SUCCESS'
+export const GET_$1S_ERROR = 'GET_$1S_ERROR'
+
+export const GET_$1_REQUEST = 'GET_$1_REQUEST'
+export const GET_$1_SUCCESS = 'GET_$1_SUCCESS'
+export const GET_$1_ERROR = 'GET_$1_ERROR'
+
+export const POST_$1_REQUEST = 'POST_$1_REQUEST'
+export const POST_$1_SUCCESS = 'POST_$1_SUCCESS'
+export const POST_$1_ERROR = 'POST_$1_ERROR'
+
+export const PUT_$1_REQUEST = 'PUT_$1_REQUEST'
+export const PUT_$1_SUCCESS = 'PUT_$1_SUCCESS'
+export const PUT_$1_ERROR = 'PUT_$1_ERROR'
+
+export const DELETE_$1_REQUEST = 'DELETE_$1_REQUEST'
+export const DELETE_$1_SUCCESS = 'DELETE_$1_SUCCESS'
+export const DELETE_$1_ERROR = 'DELETE_$1_ERROR'
+endsnippet
+
+snippet dispatcher "dispatchers"
+import $1Service from '../../service/$1_service'
+import * as actions from '../action/$1_actions'
+
+export const get$1s = (filters) => (dispatch) => {  
+	dispatch({
+		type: actions.GET_`!p snip.rv=t[1].upper()`S_REQUEST,
+		data: null,
+	})
+}
+
+export const get$1 = (id) => (dispatch) => {  
+	dispatch({
+		type: actions.GET_`!p snip.rv=t[1].upper()`_REQUEST,
+		data: null,
+	})
+}
+
+export const post$1 = (id) => (dispatch) => {  
+	dispatch({
+		type: actions.POST_`!p snip.rv=t[1].upper()`_REQUEST,
+		data: null,
+	})
+}
+
+export const put$1 = (id) => (dispatch) => {  
+	dispatch({
+		type: actions.PUT_`!p snip.rv=t[1].upper()`_REQUEST,
+		data: null,
+	})
+}
+
+export const delete$1 = (id) => (dispatch) => {  
+	dispatch({
+		type: actions.DELETE_`!p snip.rv=t[1].upper()`_REQUEST,
+		data: null,
+	})
+}
+endsnippet
+
+snippet suite "test suite"
+describe('$1 Test Suite', () => { 
+	it('Example Test', async (done) => {
+		expect(true).toBe(true)
+		done()
+	})	
+})
+endsnippet
+
+snippet prom "promise"
+new Promise ( (resolve, reject) => {   $1 
+})
+endsnippet
+
+snippet svin "service init"
+import config from '../config/$1'
+
+class ${1/\w+/\lu$0/g} {
+	constructor (config) {
+	}
+}
+
+const service = new ${1/\w+/\lu$0/g}(config)
+
+export default service
+endsnippet
+
+snippet class "class"
+class $1 {
+	constructor () {
+
+	}
+}
+
+export default $1
+endsnippet 
+
+snippet repo "repository"
+import $1 from '../model/${1/\w+/\l$0/g}'
+import Repository from './repository'
+
+class $1Repository extends Repository {
+  constructor(args) {
+    super(args)
+  }
+}
+
+export default new $1Repository({
+	model: $1,
+})
+endsnippet
+
+snippet event "express event"
+import Event from '../event'
+
+class $1 extends Event {
+	constructor(args) {
+		super(args)
+	}
+}
+
+export default $1
+
+endsnippet
+
+snippet ax "axios"
+axios
+	.$1({
+	
+	})
+	.then(res => res)
+	.catch(err => err)
 endsnippet
