@@ -224,10 +224,98 @@ test('$1 component test', () => {
 })
 endsnippet
 
-snippet break "breakpoints"
+snippet tbd "breakpoints"
 [theme.breakpoints.down('$1')]: {
 	$2
 }
+endsnippet
+
+snippet tbu "breakpoints"
+[theme.breakpoints.up('$1')]: {
+	$2
+}
+endsnippet
+
+snippet tbb "breakpoints"
+[theme.breakpoints.between('$1', '$2')]: {
+	$2
+}
+endsnippet
+
+snippet mt "margin top"
+marginTop: '$1'
+endsnippet
+
+snippet mb "margin top"
+marginBottom: '$1'
+endsnippet
+
+snippet ml "margin top"
+marginLeft: '$1'
+endsnippet
+
+snippet mr "margin top"
+marginRight: '$1'
+endsnippet
+
+snippet pt "margin top"
+paddingTop: '$1'
+endsnippet
+
+snippet pb "margin top"
+paddingBottom: '$1'
+endsnippet
+
+snippet pl "margin top"
+paddingLeft: '$1'
+endsnippet
+
+snippet pr "margin top"
+paddingRight: '$1'
+endsnippet
+
+snippet tt "text transform"
+textTransform: 'none'
+endsnippet
+
+snippet td "text transform"
+textDecoration: 'none'
+endsnippet
+
+snippet bg "backgroundColor"
+backgroundColor: $1
+endsnippet
+
+snippet hov "hover"
+'&:hover': {
+	backgroundColor: '$1',
+},
+endsnippet
+
+snippet tf "textField"
+<TextField 
+	fullWidth
+	className={classes.textfield}
+	margin={'dense'}
+	variant={'outlined'}
+	name={'$1'}
+	onChange={$2}
+	placeholder={$3}
+	InputProps={{
+	
+	}}
+/>
+endsnippet
+
+snippet button "button"
+<Button
+	fullWidth
+	className={classes.button}
+	onClick={}
+	startIcon={}
+>
+		$1
+</Button>
 endsnippet
 
 snippet style "style"
@@ -256,11 +344,11 @@ import $1Controller from '../controller/${1/\w+/\l$0/g}_controller'
 
 const router = express.Router()
 
-router.get('/', $1Controller.index)
-router.get('/:id', $1Controller.get)
-router.post('/', $1Controller.post)
-router.put('/:id', $1Controller.put)
-router.delete('/:id', $1Controller.delete)
+router.get('/', $1Controller.index.bind($1Controller))
+router.get('/:id', $1Controller.get.bind($1Controller))
+router.post('/', $1Controller.post.bind($1Controller))
+router.put('/:id', $1Controller.put.bind($1Controller))
+router.delete('/:id', $1Controller.delete.bind($1Controller))
 
 export default router
 endsnippet
@@ -358,19 +446,27 @@ snippet rts "routes"
 import routes from '../../../route/routes'
 endsnippet
 
-snippet img "images"
-import images from '../../../style/images'
+snippet assets "assets"
+import assets from '../../../style/assets'
 endsnippet
 
 snippet link "link"
 import { Link } from 'react-router-dom'
 endsnippet
 
-snippet mcolor "main color"
+snippet palet "main color"
 theme.palette.primary.main
 endsnippet
 
-snippet spa "spacing"
+snippet white "main color"
+theme.palette.common.white
+endsnippet
+
+snippet black "main color"
+theme.palette.common.black
+endsnippet
+
+snippet space "spacing"
 theme.spacing($1)
 endsnippet
 
@@ -615,17 +711,21 @@ new Promise ( (resolve, reject) => {   $1
 })
 endsnippet
 
-snippet svin "service init"
-import config from '../config/$1'
+snippet rservice "service init"
+import Service from './service'
+import HttpService from './http_service'
+import CacheService from './cache_service'
 
-class ${1/\w+/\lu$0/g} {
-	constructor (config) {
+class $1Service extends Service {
+	constructor (args) {
+		super(args)
 	}
 }
 
-const service = new ${1/\w+/\lu$0/g}(config)
-
-export default service
+export default new $1Service({
+	http: HttpService,
+	cache: CacheService,
+})
 endsnippet
 
 snippet class "class"
@@ -673,4 +773,86 @@ axios
 	})
 	.then(res => res)
 	.catch(err => err)
+endsnippet
+
+snippet i18n "i18n"
+import i18n from 'i18next'
+import languageDetector from 'i18next-browser-languagedetector'
+import { initReactI18next } from 'react-i18next'
+import xhr from 'i18next-xhr-backend'
+import en from './translations/en_US.json'
+import tr from './translations/tr_TR.json'
+
+i18n
+  .use(xhr)
+  .use(languageDetector)
+  .use(initReactI18next)
+  .init({
+    resources: {
+      tr: tr,
+      en: en,
+    },
+    lng: 'tr',
+    fallbackLng: 'tr',
+    debug: true,
+    ns: ['translations'],
+    defaultNS: 'translations',
+    keySeparator: '.',
+    interpolation: {
+      escapeValue: false,
+      formatSeparator: ',',
+    },
+    react: {
+      useSuspense: false,
+      wait: true,
+      bindi18n: 'languagechanged loaded',
+      bindI18nStore: 'added removed',
+      nsMode: 'default',
+    },
+  })
+
+export default i18n
+
+endsnippet	
+
+snippet helmet "helmet" 
+<Helmet>
+  <title>$1</title>
+  <meta
+    name='description'
+    content='$2'
+  />
+</Helmet>
+endsnippet
+
+snippet app "app" 
+import React from 'react'
+
+import { I18nProvider } from 'react-i18next'
+import i18n from './locale/i18n'
+
+import { Provider } from 'react-redux'
+import store from './redux/store/index'
+
+import { ThemeProvider } from '@material-ui/core'
+import theme from './style/theme'
+
+import Main from './layout/main/Main'
+
+const App = (props) => {
+  return (
+    <Fragment>
+      <Provider store={store}>
+        <I18nProvider i18n={i18n}>
+          <ThemeProvider theme={theme}>
+            <Main />
+          </ThemeProvider>
+        </I18nProvider>
+      </Provider>
+    </Fragment>
+  )
+}
+
+export default App
+
 endsnippet
