@@ -11,11 +11,11 @@ snippet	sp "spread"
 endsnippet
 
 snippet imp "import"
-import $1 from '$1'
+import  from '$1'
 endsnippet
 
 snippet impc "import curly"
-import { $1 } from '$2'$0
+import { } from '$1'$0
 endsnippet
 
 snippet arr "arrow function"
@@ -39,11 +39,11 @@ console.log($1)$0
 endsnippet
 
 snippet then "then function"
-.then(($1) => $2)$0
+.then(($1) => $1)$0
 endsnippet
 
 snippet catch "catch function"
-.catch((err) => $2)$0
+.catch((err) => err)$0
 endsnippet
 
 snippet filter "filter"
@@ -119,14 +119,15 @@ import React, {
 	useEffect,
 } from 'react'
 import { useTranslation } from 'react-i18next'
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles } from '@mui/styles'
 
 import styles from './styles'
 import props from './props'
 
 import {
-
-} from '@material-ui/core'
+	Grid,
+	Typography,
+} from '@mui/material'
 
 const $1 = (props) => {
 	const { t } = useTranslation()
@@ -146,7 +147,7 @@ export default withStyles(styles)($1)
 endsnippet
 
 snippet icon "icon"
-import $1Icon from '@material-ui/icons/$1'
+import { } from 'react-icons/$1'
 endsnippet
 
 snippet state "functional state"
@@ -159,12 +160,30 @@ snippet ter "ternary"
 	null
 endsnippet
 
-snippet input "form handle"
-const inputHandler = (e) => { 
+snippet th "text handler"
+const textHandler = (e) => { 
 	set$1({
 		...$1,
-		[e.target.name]: e.target.value}	
-	)
+		[e.target.name]: e.target.value
+	})
+}
+endsnippet
+
+snippet sh "switch handler"
+const switchHandler = (e) => { 
+	set$1({
+		...$1,
+		[e.target.name]: e.target.checkedi
+	})
+}
+endsnippet
+
+snippet slih "text handler"
+const sliderHandler = (e, v) => { 
+	set$1({
+		...$1,
+		[e]: v
+	})
 }
 endsnippet
 
@@ -175,7 +194,7 @@ it('$1', async (done) => {
 })
 endsnippet
 
-snippet container "container"
+snippet cont "container"
 <Container maxWidth={$1}>
 	<Grid container>
 	</Grid>
@@ -183,11 +202,17 @@ snippet container "container"
 endsnippet
 
 snippet align "align"
-alignItems={'$1'} justify={'$2'}
+alignItems={'center'} justifyContent={'center'}
 endsnippet
 
 snippet gitem "grid item"
-<Grid item xs={$1} sm={$1} md={$1} lg={$1} xl={$1}>
+<Grid item 
+	xs={$1} 
+	sm={$1} 
+	md={$1} 
+	lg={$1} 
+	xl={$1}>
+
 </Grid>
 endsnippet
 
@@ -243,79 +268,93 @@ snippet tbb "breakpoints"
 endsnippet
 
 snippet mt "margin top"
-marginTop: '$1'
+marginTop: [$1, '!important'],
 endsnippet
 
-snippet mb "margin top"
-marginBottom: '$1'
+snippet mb "margin bottom"
+marginBottom: [$1, '!important'],
 endsnippet
 
-snippet ml "margin top"
-marginLeft: '$1'
+snippet ml "margin left"
+marginLeft: [$1, '!important'],
 endsnippet
 
-snippet mr "margin top"
-marginRight: '$1'
+snippet mr "margin right"
+marginRight: [$1, '!important'],
 endsnippet
 
-snippet pt "margin top"
-paddingTop: '$1'
+snippet pt "padding top"
+paddingTop: [$1, '!important'],
 endsnippet
 
-snippet pb "margin top"
-paddingBottom: '$1'
+snippet pb "padding bottom"
+paddingBottom: [$1, '!important'],
 endsnippet
 
-snippet pl "margin top"
-paddingLeft: '$1'
+snippet pl "padding left"
+paddingLeft: [$1, '!important'],
 endsnippet
 
-snippet pr "margin top"
-paddingRight: '$1'
+snippet pr "padding right"
+paddingRight: [$1, '!important'],
 endsnippet
 
 snippet tt "text transform"
-textTransform: 'none'
+textTransform: ['none', '!important'],
 endsnippet
 
-snippet td "text transform"
-textDecoration: 'none'
+snippet td "text decoration"
+textDecoration: ['none', '!important'],
 endsnippet
 
 snippet bg "backgroundColor"
-backgroundColor: $1
+backgroundColor: [$1, '!important'],
+endsnippet
+
+snippet cl "color"
+color: [$1, '!important'],
 endsnippet
 
 snippet hov "hover"
 '&:hover': {
-	backgroundColor: '$1',
+	backgroundColor: [$1, '!important'],
 },
 endsnippet
 
 snippet tf "textField"
 <TextField 
 	fullWidth
-	className={classes.textfield}
+	className={classes.field}
 	margin={'dense'}
 	variant={'outlined'}
 	name={'$1'}
 	onChange={$2}
 	placeholder={$3}
-	InputProps={{
-	
-	}}
 />
 endsnippet
 
 snippet button "button"
 <Button
 	fullWidth
+	variant={'outlined'}
 	className={classes.button}
-	onClick={}
+	onClick={$1}
 	startIcon={}
 >
-		$1
+		$2
 </Button>
+endsnippet
+
+snippet vr "variant"
+variant={'$1'}
+endsnippet
+
+snippet oc "on click"
+onClick={$1}
+endsnippet
+
+snippet och "on click"
+onChange={$1}
 endsnippet
 
 snippet style "style"
@@ -327,7 +366,7 @@ snippet tr "translation"
 endsnippet
 
 snippet color "colors"
-import { $1 } from '@material-ui/core/colors'
+import { $1 } from '@mui/material/colors'
 endsnippet
 
 snippet route "route"
@@ -340,7 +379,7 @@ endsnippet
 
 snippet router "express router"
 import express from 'express'
-import $1Controller from '../controller/${1/\w+/\l$0/g}_controller'
+import $1Controller from '../controller/${1/\w+/\l$0/g}.controller'
 
 const router = express.Router()
 
@@ -354,35 +393,22 @@ export default router
 endsnippet
 
 snippet controller "express controller"
-import $1Service from '../service/${1/\w+/\l$0/g}_service'
+import $1Service from '../service/${1/\w+/\l$0/g}.service'
 import Controller from './controller'
 
 class $1Controller extends Controller {
 	constructor (args) {
 		super(args)
 	}
-
-	index (req, res, next) {
-	}
-
-	get (req, res, next) {
-	}
-
-	post (req, res, next) {
-	}
-
-	put (req, res, next) {
-	}
-
-	delete (req, res, next) {
-	}
 }
 
-export default new $1Controller({})
+export default new $1Controller({
+	service: $1Service
+})
 endsnippet
 
 snippet service "express service"
-import ${1/\w+/\u$0/g}Repository from '../repository/$1_repository'
+import ${1/\w+/\u$0/g}Repository from '../repository/$1.repository'
 import Service from './service'
 
 class ${1/\w+/\u$0/g}Service extends Service {
@@ -426,9 +452,13 @@ snippet pe "process env"
 process.env.
 endsnippet
 
+snippet per "process env react"
+process.env.REACT_APP_$1
+endsnippet
+
 snippet rtfn "router function"
 (req, res, next) => {
-	return 
+	return $1 
 }
 endsnippet
 
@@ -436,10 +466,6 @@ snippet dotenv "dotenv"
 import dotenv from 'dotenv'
 
 dotenv.config()
-endsnippet
-
-snippet handler "handler"
-const $1Handler = (e) => {}
 endsnippet
 
 snippet rts "routes"
@@ -450,32 +476,30 @@ snippet assets "assets"
 import assets from '../../../style/assets'
 endsnippet
 
+snippet aii "async image import"
+import AsyncImage from '../../../component/main/asyncImage/AsyncImage'
+endsnippet
+
 snippet link "link"
 import { Link } from 'react-router-dom'
 endsnippet
 
-snippet palet "main color"
+snippet linkc "link component"
+<Link className={classes.link} to={$1}>
+	$2
+</Link>
+endsnippet
+
+snippet plt "main color"
 theme.palette.primary.main
 endsnippet
 
-snippet white "main color"
-theme.palette.common.white
-endsnippet
-
-snippet black "main color"
-theme.palette.common.black
+snippet pltc "palet common"
+theme.palette.common.$1
 endsnippet
 
 snippet space "spacing"
 theme.spacing($1)
-endsnippet
-
-snippet adorn "adornment"
-const $1 = {
-	startAdornment: <InputAdornment>
-		<$2 />
-	</InputAdornment>
-}
 endsnippet
 
 snippet maprx "redux connect"
@@ -583,25 +607,16 @@ export default mongoose.model('$1', schema, '$1')
 
 endsnippet
 
-snippet rh "responsive hidden"
-<Hidden smDown>
-$1
-</Hidden>
-<Hidden mdUp>
-$2
+snippet hdd "hidden down"
+<Hidden $1Down>
+
 </Hidden>
 endsnippet
 
-snippet rb "responsive break"
-[theme.breakpoints.down('sm')]: {
-	height: '$1',
-},
-[theme.breakpoints.between('sm','lg')]: {
-	height: '$2',
-},
-[theme.breakpoints.up('lg')]: {
-	height: '$3',
-}
+snippet hdu "hidden up"
+<Hidden $1Up>
+
+</Hidden>
 endsnippet
 
 snippet fake "fake data"
@@ -730,7 +745,7 @@ endsnippet
 
 snippet class "class"
 class $1 {
-	constructor () {
+	constructor (args) {
 
 	}
 }
@@ -792,7 +807,7 @@ i18n
       tr: tr,
       en: en,
     },
-    lng: 'tr',
+    // lng: 'tr',
     fallbackLng: 'tr',
     debug: true,
     ns: ['translations'],
@@ -815,7 +830,7 @@ export default i18n
 
 endsnippet	
 
-snippet helmet "helmet" 
+snippet helm "helmet" 
 <Helmet>
   <title>$1</title>
   <meta
@@ -855,4 +870,193 @@ const App = (props) => {
 
 export default App
 
+endsnippet
+
+snippet fs "Description" 
+fontSize: [$1, '!important'],
+endsnippet
+
+snippet fw "Description" 
+fontWeight: [$1, '!important'],
+endsnippet
+
+snippet it "important"
+'!important'
+endsnippet
+
+snippet ai "async image"
+<AsyncImage src={$1} width={$2} height={$3} alt={$4}/>
+endsnippet
+
+snippet aic "async image"
+import React, { Fragment, useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import { withStyles } from '@mui/styles'
+
+import styles from './styles'
+import props from './props'
+
+import Skeleton from 'react-loading-skeleton'
+
+const AsyncImage = props => {
+  const { t } = useTranslation()
+  const { classes } = props
+  const [status, setStatus] = useState(false)
+
+  useEffect(() => {})
+
+  const onLoad = e => setStatus(true)
+
+  return (
+    <Fragment>
+      {status ? (
+        <img
+          src={props.src}
+          alt={props.alt}
+          style={{
+            width: props.width,
+            height: props.height,
+          }}
+        />
+      ) : (
+        <Fragment>
+          <img
+            src={props.src}
+            alt={props.alt}
+            style={{
+              width: props.width,
+              height: props.height,
+            }}
+            onLoad={onLoad}
+          />
+          <Skeleton
+            style={{
+              width: props.width,
+              height: props.height,
+            }}
+          />
+        </Fragment>
+      )}
+    </Fragment>
+  )
+}
+
+AsyncImage.propTypes = props
+
+export default withStyles(styles)(AsyncImage)
+endsnippet
+
+snippet value "important" 
+[$1, '!important'],
+endsnippet
+
+snippet rtc "router component"
+import React, { Fragment, useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import { withStyles } from '@mui/styles'
+import { Route } from 'react-router-dom'
+
+import styles from './styles'
+import props from './props'
+
+import { Grid, Typography } from '@mui/material'
+
+const $1Route = ({ component: Component, ...rest }) => {
+  const { t } = useTranslation()
+  const { classes } = rest
+
+  useEffect(() => {})
+
+  return (
+    <Fragment>
+      <Route
+        {...props}
+        render={props => <Component {...props} />}
+      />
+    </Fragment>
+  )
+}
+
+$1Route.propTypes = props
+
+export default withStyles(styles)($1Route)
+
+endsnippet
+
+snippet errb "error boundary"
+import React, {
+  Fragment,
+  useState,
+  useEffect,
+  Component,
+} from 'react'
+import {
+  useTranslation,
+  withTranslation,
+} from 'react-i18next'
+import { withStyles } from '@mui/styles'
+
+import styles from './styles'
+import props from './props'
+
+import { Grid, Typography } from '@mui/material'
+
+class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      hasError: false,
+    }
+  }
+
+  static getDerivedStateFromError(err) {
+    return {
+      hasError: true,
+    }
+  }
+
+  render() {
+    const { classes } = this.props
+    const { t } = this.props
+
+    return (
+      <Fragment>
+        {this.state.hasError ? (
+          <Grid
+            container
+            className={classes.container}
+					>
+					</Grid>
+        ) : (
+          this.props.children
+        )}
+      </Fragment>
+    )
+  }
+}
+
+ErrorBoundary.propTypes = props
+
+export default withTranslation()(
+  withStyles(styles)(ErrorBoundary)
+)
+
+endsnippet
+
+snippet lazy "lazy"
+const $1 = lazy(() => ('./$1'))
+endsnippet
+
+snippet susp "suspense"
+<Suspense fallback={<Fallback />}>
+	$1
+</Suspense>
+endsnippet
+
+snippet esusp "suspense"
+<ErrorBoundary>
+	<Suspense fallback={<Fallback />}>
+		$1
+	</Suspense>
+</ErrorBoundary>
 endsnippet
