@@ -490,11 +490,11 @@ snippet linkc "link component"
 </Link>
 endsnippet
 
-snippet plt "main color"
+snippet palet "main color"
 theme.palette.primary.main
 endsnippet
 
-snippet pltc "palet common"
+snippet paletc "palet common"
 theme.palette.common.$1
 endsnippet
 
@@ -553,15 +553,19 @@ dispatch({
 endsnippet
 
 snippet rncom "react native component"
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
 	View,
 } from 'react-native'
+
 import styles from './styles'
 import props from './props'
+
 import i18n from '../../../locale/i18n'
 
 const $1 = (props) => {  
+	useEffect(() => {})
+
 	return <View>
 	</View>
 }
@@ -574,7 +578,11 @@ endsnippet
 snippet rnstyle "react native style"
 import {
 	StyleSheet,
+	Dimensions,
 } from 'react-native'
+
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 
 const styles = {
 
@@ -1015,7 +1023,7 @@ export default withStyles(styles)($1Route)
 
 endsnippet
 
-snippet errb "error boundary"
+snippet errbo "error boundary"
 import React, {
   Fragment,
   useState,
@@ -1097,7 +1105,7 @@ snippet rrc "react redux connect"
 import { connect } from 'react-redux'
 endsnippet
 
-snippet comj "line comment"
+snippet jscom "line comment"
 {/** $1 */}
 endsnippet
 
@@ -1476,5 +1484,141 @@ export const app = firebase.initializeApp(config)
 export const auth = firebaseAuth.getAuth()
 
 export const AuthService = firebaseAuth
+
+endsnippet
+
+snippet sname "style name"
+style={styles.$1}
+endsnippet
+
+snippet asim "async image"
+import React, { Fragment, useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+
+import classes from './styles.module.css'
+import props from './props'
+
+import Skeleton from 'react-loading-skeleton'
+
+const AsyncImage = props => {
+  const { t } = useTranslation()
+  const [status, setStatus] = useState(false)
+
+  useEffect(() => {})
+
+  const onLoad = e => setStatus(true)
+
+  return (
+    <Fragment>
+      {status ? (
+        <img
+          src={props.src}
+          alt={props.alt}
+          style={{
+            width: props.width,
+            height: props.height,
+          }}
+        />
+      ) : (
+        <Fragment>
+          <img
+            src={props.src}
+            alt={props.alt}
+            style={{
+              width: props.width,
+              height: props.height,
+            }}
+            onLoad={onLoad}
+          />
+          <Skeleton
+            width={props.width}
+            height={props.height}
+          />
+        </Fragment>
+      )}
+    </Fragment>
+  )
+}
+
+AsyncImage.propTypes = props
+
+export default AsyncImage
+
+endsnippet
+
+snippet main "Main component"
+import React, { Fragment, useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import { withStyles } from '@mui/styles'
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+} from 'react-router-dom'
+import Analytics from 'react-router-ga'
+import analytics from '../../config/analytics'
+
+import styles from './styles'
+import props from './props'
+
+import PublicRoute from '../../component/main/publicRoute/PublicRoute'
+// import ProtectedRoute from '../../component/main/protectedRoute/ProtectedRoute'
+// import PrivateRoute from '../../component/main/privateRoute/PrivateRoute'
+import PublicIndex from '../../route/public.index'
+// import ProtectedIndex from '../../route/protected.index'
+// import PrivateIndex from '../../route/private.index'
+
+const Main = (props) => {
+  const { t } = useTranslation()
+  const { classes } = props
+
+  useEffect(() => {})
+
+  return (
+    <Fragment>
+      <BrowserRouter>
+        <Analytics id={analytics.id}>
+          <Routes>
+            <Route element={<PublicRoute />}>
+              {PublicIndex.map((v, i) => (
+                <Route
+                  path={v.path}
+                  element={<v.component />}
+                  key={i}
+                />
+              ))}
+            </Route>
+          </Routes>
+        </Analytics>
+      </BrowserRouter>
+    </Fragment>
+  )
+}
+
+Main.propTypes = props
+
+export default withStyles(styles)(Main)
+
+endsnippet
+
+snippet withsuspense "with suspense"
+import React, { Fragment, Suspense } from 'react'
+
+import ErrorBoundary from '../errorBoundary/ErrorBoundary'
+import Fallback from '../fallback/Fallback'
+
+const WithSuspense = Component => {
+  return props => (
+    <Fragment>
+      <ErrorBoundary>
+        <Suspense fallback={<Fallback />}>
+          <Component {...props} />
+        </Suspense>
+      </ErrorBoundary>
+    </Fragment>
+  )
+}
+
+export default WithSuspense
 
 endsnippet

@@ -9,8 +9,6 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
 Plug 'dart-lang/dart-vim-plugin'
 
-Plug 'chr4/nginx.vim'
-
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
