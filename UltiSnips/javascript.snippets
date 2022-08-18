@@ -205,6 +205,15 @@ snippet align "align"
 alignItems={'center'} justifyContent={'center'}
 endsnippet
 
+snippet al "Description" b
+align={'center'}
+endsnippet
+
+snippet gcon "Description" b
+<Grid container className={classes.container}>
+</Grid>
+endsnippet
+
 snippet gitem "grid item"
 <Grid item 
 	xs={$1} 
@@ -425,7 +434,7 @@ endsnippet
 snippet rrd "react router dom"
 import {
 	BrowserRouter,
-	Switch,
+	Routes,
 	Route,
 } from 'react-router-dom'
 endsnippet
@@ -454,12 +463,6 @@ endsnippet
 
 snippet per "process env react"
 process.env.REACT_APP_$1
-endsnippet
-
-snippet rtfn "router function"
-(req, res, next) => {
-	return $1 
-}
 endsnippet
 
 snippet dotenv "dotenv"
@@ -498,10 +501,6 @@ snippet paletc "palet common"
 theme.palette.common.$1
 endsnippet
 
-snippet space "spacing"
-theme.spacing($1)
-endsnippet
-
 snippet maprx "redux connect"
 const mapStateToProps = (state) => ({  
 
@@ -510,6 +509,11 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({  
 
 })
+
+export default connect(
+	mapStateToProps, 
+	mapDispatchToProps,
+)(withStyles(styles)($1))
 
 endsnippet
 
@@ -651,105 +655,78 @@ snippet pic "lorem picsum"
 'https://picsum.photos/$1/$2'
 endsnippet 
 
-snippet authactions "auth actions"
-export const LOGIN_WITH_EMAIL_REQUEST = 'LOGIN_WITH_EMAIL_REQUEST'
-export const LOGIN_WITH_EMAIL_SUCCESS = 'LOGIN_WITH_EMAIL_SUCCESS'
-export const LOGIN_WITH_EMAIL_ERROR = 'LOGIN_WITH_EMAIL_ERROR'
-
-export const SIGNUP_WITH_EMAIL_REQUEST = 'SIGNUP_WITH_EMAIL_REQUEST'
-export const SIGNUP_WITH_EMAIL_SUCCESS = 'SIGNUP_WITH_EMAIL_SUCCESS'
-export const SIGNUP_WITH_EMAIL_ERROR = 'SIGNUP_WITH_EMAIL_ERROR'
-
-export const SIGNIN_WITH_FACEBOOK_REQUEST = 'SIGNIN_WITH_FACEBOOK_REQUEST'
-export const SIGNIN_WITH_FACEBOOK_SUCCESS = 'SIGNIN_WITH_FACEBOOK_SUCCESS'
-export const SIGNIN_WITH_FACEBOOK_ERROR = 'SIGNIN_WITH_FACEBOOK_ERROR'
-
-export const SIGNIN_WITH_GOOGLE_REQUEST = 'SIGNIN_WITH_GOOGLE_REQUEST'
-export const SIGNIN_WITH_GOOGLE_SUCCESS = 'SIGNIN_WITH_GOOGLE_SUCCESS'
-export const SIGNIN_WITH_GOOGLE_ERROR = 'SIGNIN_WITH_GOOGLE_ERROR'
-
-endsnippet
-
-snippet actions "redux action"
-export const GET_$1S_REQUEST = 'GET_$1S_REQUEST'
-export const GET_$1S_SUCCESS = 'GET_$1S_SUCCESS'
-export const GET_$1S_ERROR = 'GET_$1S_ERROR'
-
+snippet getac "Description" b
 export const GET_$1_REQUEST = 'GET_$1_REQUEST'
 export const GET_$1_SUCCESS = 'GET_$1_SUCCESS'
 export const GET_$1_ERROR = 'GET_$1_ERROR'
 
+endsnippet
+
+snippet postac "Description" b
 export const POST_$1_REQUEST = 'POST_$1_REQUEST'
 export const POST_$1_SUCCESS = 'POST_$1_SUCCESS'
 export const POST_$1_ERROR = 'POST_$1_ERROR'
 
+endsnippet
+
+snippet putac "Description" b
 export const PUT_$1_REQUEST = 'PUT_$1_REQUEST'
 export const PUT_$1_SUCCESS = 'PUT_$1_SUCCESS'
 export const PUT_$1_ERROR = 'PUT_$1_ERROR'
 
+endsnippet
+
+snippet indexac "redux action"
+export const GET_$1S_REQUEST = 'GET_$1S_REQUEST'
+export const GET_$1S_SUCCESS = 'GET_$1S_SUCCESS'
+export const GET_$1S_ERROR = 'GET_$1S_ERROR'
+
+endsnippet
+
+snippet deleteac "Description" 
 export const DELETE_$1_REQUEST = 'DELETE_$1_REQUEST'
 export const DELETE_$1_SUCCESS = 'DELETE_$1_SUCCESS'
 export const DELETE_$1_ERROR = 'DELETE_$1_ERROR'
+
 endsnippet
 
-snippet dispatcher "dispatchers"
-import $1Service from '../../service/`!p snip.rv=t[1].lower()`.service'
-import * as actions from '../action/`!p snip.rv=t[1].lower()`.actions'
+snippet indexdis "dispatchers"
+import $1Service from '../../../application/service/$1.service'
+import * as action from '../action/index.$1.action'
 
-export const get$1s = (filters = {}) => (dispatch) => {  
-	dispatch({
-		type: actions.GET_`!p snip.rv=t[1].upper()`S_REQUEST,
-		data: null,
-	})
+const index =
+  (filters = {}) =>
+  dispatch => {
+    dispatch({
+      type: action.GET_ANALYTICS_REQUEST,
+      data: null,
+    })
 
-	$1Service.index(filters)
-		.then((res) => dispatch({
-			type: actions.GET_`!p snip.rv=t[1].upper()`S_SUCCESS,
-			data: res,
-		}))	
-		.catch((err) => dispatch({
-			type: actions.GET_`!p snip.rv=t[1].upper()`S_ERROR,
-			data: err,
-		}))
-}
+    new $1Service()
+      .index(filters)
+      .then(res =>
+        dispatch({
+          type: action.GET_ANALYTICS_SUCCESS,
+          data: res,
+        })
+      )
+      .catch(err => {
+        dispatch({
+          type: action.GET_ANALYTICS_ERROR,
+          data: err,
+        })
+      })
+  }
 
-export const get$1 = (id) => (dispatch) => {  
-	dispatch({
-		type: actions.GET_`!p snip.rv=t[1].upper()`_REQUEST,
-		data: null,
-	})
-
-	$1Service.get(id)
-		.then((res) => dispatch({
-			type: actions.GET_`!p snip.rv=t[1].upper()`_SUCCESS,
-			data: res,
-		}))	
-		.catch((err) => dispatch({
-			type: actions.GET_`!p snip.rv=t[1].upper()`_ERROR,
-			data: err,
-		}))
-}
-
-export const post$1 = (body) => (dispatch) => {  
-	dispatch({
-		type: actions.POST_`!p snip.rv=t[1].upper()`_REQUEST,
-		data: null,
-	})
-}
-
-export const put$1 = ({ id, body }) => (dispatch) => {  
-	dispatch({
-		type: actions.PUT_`!p snip.rv=t[1].upper()`_REQUEST,
-		data: null,
-	})
-}
-
-export const delete$1 = (id) => (dispatch) => {  
-	dispatch({
-		type: actions.DELETE_`!p snip.rv=t[1].upper()`_REQUEST,
-		data: null,
-	})
-}
+export default index
+endsnippet
+snippet getdis "dispatchers"
+endsnippet
+snippet postdis "dispatchers"
+endsnippet
+snippet putdis "dispatchers"
+endsnippet
+snippet deletedis "dispatchers"
 endsnippet
 
 snippet suite "test suite"
@@ -870,13 +847,15 @@ export default i18n
 
 endsnippet	
 
+snippet imhel "import helmet"
+import { Helmet } from 'react-helmet'
+endsnippet
+
 snippet helm "helmet" 
 <Helmet>
-  <title>$1</title>
-  <meta
-    name='description'
-    content='$2'
-  />
+  <title>
+		{t('main.app')} - {t(meta.title)}
+	</title>
 </Helmet>
 endsnippet
 
@@ -988,39 +967,6 @@ endsnippet
 
 snippet value "important" 
 [$1, '!important'],
-endsnippet
-
-snippet rtc "router component"
-import React, { Fragment, useState, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
-import { withStyles } from '@mui/styles'
-import { Route } from 'react-router-dom'
-
-import styles from './styles'
-import props from './props'
-
-import { Grid, Typography } from '@mui/material'
-
-const $1Route = ({ component: Component, ...rest }) => {
-  const { t } = useTranslation()
-  const { classes } = rest
-
-  useEffect(() => {})
-
-  return (
-    <Fragment>
-      <Route
-        {...props}
-        render={props => <Component {...props} />}
-      />
-    </Fragment>
-  )
-}
-
-$1Route.propTypes = props
-
-export default withStyles(styles)($1Route)
-
 endsnippet
 
 snippet errbo "error boundary"
@@ -1362,52 +1308,12 @@ import font from './font'
 export default {
 	image,
 	logo,
+	font,
 }
 
 endsnippet
 
-snippet baseservice "base service"
-import axios from 'axios'
-import config from '../config/axios'
-
-class Service 
-{
-	constructor(args)
-	{
-		this.axios = axios.create(config)
-		this.path = args.path ? args.path : ''	
-
-		//
-	}
-
-	index (filters = {}) 
-	{
-
-	}
-
-	get (id) 
-	{
-
-	}
-
-	post (body) 
-	{
-
-	}
-
-	put ({ id, body }) 
-	{
-
-	}
-
-	remove (id) 
-	{
-
-	}
-}
-
-export default Service
-
+snippet baseser "base service"
 endsnippet
 
 snippet service "service"
@@ -1421,8 +1327,8 @@ class $1Service extends Service
 	}
 }
 
-export default new $1Service({
-	path: '/$2',
+export default new $1Service(args = {
+
 })
 
 endsnippet
@@ -1443,10 +1349,10 @@ import { Grid, Container } from '@mui/material'
 
 const $1Route = ({
   component: Component,
+	classes,
   ...rest
 }) => {
   const { t } = useTranslation()
-  const { classes } = rest
 
 	useEffect(() => {
 
@@ -1577,19 +1483,8 @@ const Main = (props) => {
   return (
     <Fragment>
       <BrowserRouter>
-        <Analytics id={analytics.id}>
           <Routes>
-            <Route element={<PublicRoute />}>
-              {PublicIndex.map((v, i) => (
-                <Route
-                  path={v.path}
-                  element={<v.component />}
-                  key={i}
-                />
-              ))}
-            </Route>
           </Routes>
-        </Analytics>
       </BrowserRouter>
     </Fragment>
   )
@@ -1621,4 +1516,200 @@ const WithSuspense = Component => {
 
 export default WithSuspense
 
+endsnippet
+
+snippet row "Description" b
+import React, { Fragment, useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import { withStyles } from '@mui/styles'
+
+import styles from './styles'
+import props from './props'
+import defaultProps from './props.default'
+
+import { Grid, Typography } from '@mui/material'
+import AsyncImage from '../asyncImage/AsyncImage'
+
+const Row = props => {
+  const { t } = useTranslation()
+  const { classes } = props
+
+  useEffect(() => {})
+
+  return (
+    <Fragment>
+      {props.align === 'left' ? (
+        <Fragment>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={6}
+            lg={6}
+            xl={6}
+            align={'center'}
+            className={classes.image}
+          >
+            <AsyncImage
+              src={props.src}
+              width={props.width}
+              height={props.height}
+              alt={props.alt}
+            />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={6}
+            lg={6}
+            xl={6}
+            className={classes.text}
+            style={{
+              height: props.height,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Grid container>
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={12}
+                lg={12}
+                xl={12}
+              >
+                <Typography
+                  className={classes.title}
+                  align={'center'}
+                  variant={
+                    props.titleVariant
+                      ? props.titleVariant
+                      : 'h4'
+                  }
+                >
+                  {props.title}
+                </Typography>
+                <Typography
+                  className={classes.subtitle}
+                  align={'center'}
+                  variant={
+                    props.subtitleVariant
+                      ? props.subtitleVariant
+                      : 'h5'
+                  }
+                >
+                  {props.subtitle}
+                </Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Fragment>
+      ) : (
+        <Fragment>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={6}
+            lg={6}
+            xl={6}
+            className={classes.text}
+            style={{
+              height: props.height,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Grid container>
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={12}
+                lg={12}
+                xl={12}
+              >
+                <Typography
+                  className={classes.title}
+                  align={'center'}
+                  variant={
+                    props.titleVariant
+                      ? props.titleVariant
+                      : 'h4'
+                  }
+                >
+                  {props.title}
+                </Typography>
+                <Typography
+                  className={classes.subtitle}
+                  align={'center'}
+                  variant={
+                    props.subtitleVariant
+                      ? props.subtitleVariant
+                      : 'h5'
+                  }
+                >
+                  {props.subtitle}
+                </Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={6}
+            lg={6}
+            xl={6}
+            align={'center'}
+            className={classes.image}
+          >
+            <AsyncImage
+              src={props.src}
+              width={props.width}
+              height={props.height}
+              alt={props.alt}
+            />
+          </Grid>
+        </Fragment>
+      )}
+    </Fragment>
+  )
+}
+
+Row.propTypes = props
+Row.defaultProps = defaultProps
+
+export default withStyles(styles)(Row)
+endsnippet
+
+snippet rowcss "Description" b
+const styles = theme => ({
+  title: {
+    marginBottom: ['1rem', '!important'],
+    marginTop: ['4rem', '!important'],
+  },
+  container: {
+    marginTop: ['3rem', '!important'],
+  },
+  subtitle: {
+    marginBottom: ['2rem', '!important'],
+  },
+  image: {
+    marginTop: ['4rem', '!important'],
+  },
+})
+
+export default styles
+
+endsnippet
+
+snippet meta "meta"
+const [meta, setMeta] = useState({
+	title: '',
+})
 endsnippet
